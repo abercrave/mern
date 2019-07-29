@@ -13,10 +13,10 @@ class UserList extends Component {
   }
 
   componentDidMount() {
-    this.fetchData();
+    this.getData();
   }
 
-  async fetchData() {
+  async getData() {
     const users = await get(`${process.env.REACT_APP_API}/users`);
 
     this.setState({ users });

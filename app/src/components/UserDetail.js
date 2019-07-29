@@ -15,10 +15,10 @@ class UserDetail extends Component {
   }
 
   componentDidMount() {
-    this.fetchData();
+    this.getData();
   }
 
-  async fetchData() {
+  async getData() {
     const user = await get(`${process.env.REACT_APP_API}/users/${this.state.id}`);
 
     this.setState({ user });

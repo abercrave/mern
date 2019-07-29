@@ -13,10 +13,10 @@ class MessageList extends Component {
   }
 
   componentDidMount() {
-    this.fetchData();
+    this.getData();
   }
 
-  async fetchData() {
+  async getData() {
     const messages = await get(`${process.env.REACT_APP_API}/messages`)
 
     this.setState({ messages });

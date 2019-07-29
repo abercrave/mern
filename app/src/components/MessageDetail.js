@@ -14,10 +14,10 @@ class MessageDetail extends Component {
   }
 
   componentDidMount() {
-    this.fetchData();
+    this.getData();
   }
 
-  async fetchData() {
+  async getData() {
     const message = await get(`${process.env.REACT_APP_API}/messages/${this.state.slug}`);
 
     this.setState({ message });
