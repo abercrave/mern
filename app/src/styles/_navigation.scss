@@ -1,0 +1,29 @@
+.main-navigation {
+  ul {
+    align-items: center;
+    display: flex;
+    height: 80px;
+    justify-content: center;
+    list-style: none;
+  }
+
+  li {
+    border-bottom: 3px solid transparent;
+    margin: 0 10px;
+
+    &.selected {
+      border-color: #fff;
+    }
+  }
+
+  a {
+    color: #f7f7f7;
+    display: inline-block;
+    height: 50px;
+    text-decoration: none;
+
+    .selected & {
+      color: #fff;
+    }
+  }
+}
