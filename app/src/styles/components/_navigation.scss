@@ -2,14 +2,14 @@
   ul {
     align-items: center;
     display: flex;
-    height: 80px;
     justify-content: center;
     list-style: none;
   }
 
   li {
     border-bottom: 3px solid transparent;
-    margin: 0 10px;
+    margin: 1rem;
+    transition: border-color .35s;
 
     &.selected {
       border-color: #fff;
@@ -19,7 +19,9 @@
   a {
     color: #f7f7f7;
     display: inline-block;
-    height: 50px;
+    font-size: 2rem;
+    font-weight: bold;
+    line-height: 2;
     text-decoration: none;
 
     .selected & {

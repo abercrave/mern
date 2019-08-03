@@ -1,6 +1,3 @@
-@import-normalize;
-
-@import 'base',
-'cta',
-'navigation',
-'spinner';
+@import 'vendor/main',
+'base/main',
+'components/main';

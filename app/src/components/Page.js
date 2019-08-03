@@ -10,14 +10,18 @@ function Page(props) {
 
   useTitle(title);
 
-  return <div className="page-content">
-    <header>
-      <h1>{title}</h1>
-      {subtitle &&
-        <p>{subtitle}</p>
-      }
-    </header>
-    {children}
+  return <div className="page">
+    <div className="page__content">
+      <header>
+        <h1>{title}</h1>
+        {subtitle &&
+          <p>{subtitle}</p>
+        }
+      </header>
+      <main>
+        {children}
+      </main>
+    </div>
   </div>;
 }
 

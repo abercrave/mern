@@ -2,8 +2,7 @@ import React from 'react';
 import Anchor from './Anchor';
 
 function Navigation(props) {
-  return (
-    <nav className="main-navigation">
+  return <nav className="main-navigation">
       <ul>
         {props.menuItems.map(menuItem => {
           const {
@@ -23,8 +22,7 @@ function Navigation(props) {
           </li>
         })}
       </ul>
-    </nav>
-  );
+    </nav>;
 }
 
 export default Navigation;
