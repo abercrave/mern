@@ -1,4 +1,13 @@
 .page {
+  &__header {
+    margin: 2rem 4rem;
+
+    h1, h2, h3, h4, h5, h6 {
+      letter-spacing: 0.8rem;
+      text-transform: uppercase;
+    }
+  }
+
   &__content {
     margin: 2rem 4rem;
   }

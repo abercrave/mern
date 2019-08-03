@@ -1,29 +1,6 @@
-@mixin h1 {
-  font-size: 3.6rem;
-  font-weight: bold;
-}
+@mixin heading($size) {
+  $heading: map-get($headings, $size);
 
-@mixin h2 {
-  font-size: 3rem;
-  font-weight: bold;
-}
-
-@mixin h3 {
-  font-size: 2.6rem;
-  font-weight: bold;
-}
-
-@mixin h4 {
-  font-size: 2.2rem;
-  font-weight: bold;
-}
-
-@mixin h5 {
-  font-size: 1.7rem;
-  font-weight: bold;
-}
-
-@mixin h6 {
-  font-size: 1.4rem;
+  font-size: map-get($heading, 'font-size');
   font-weight: bold;
 }

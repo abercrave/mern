@@ -10,19 +10,17 @@ function Page(props) {
 
   useTitle(title);
 
-  return <div className="page">
+  return <main className="page">
+    <header className="page__header">
+      <h1 className="page__title">{title}</h1>
+      {subtitle &&
+        <p className="page__subtitle">{subtitle}</p>
+      }
+    </header>
     <div className="page__content">
-      <header>
-        <h1>{title}</h1>
-        {subtitle &&
-          <p>{subtitle}</p>
-        }
-      </header>
-      <main>
-        {children}
-      </main>
+      {children}
     </div>
-  </div>;
+  </main>;
 }
 
 export default Page;
