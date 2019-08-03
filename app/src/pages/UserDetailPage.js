@@ -11,7 +11,7 @@ function UserDetailPage(props) {
 
   return <Page title={title}>
     <UserDetail id={params.id} />
-    <Cta href="/users" text="← Back to users" />
+    <Cta href="/users" text="← All users" />
   </Page>;
 }
 

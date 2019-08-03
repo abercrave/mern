@@ -11,7 +11,7 @@ function MessageDetailPage(props) {
 
   return <Page title={title}>
     <MessageDetail slug={params.slug} />
-    <Cta href="/messages" text="← Back to messages" />
+    <Cta href="/messages" text="← All messages" />
   </Page>;
 }
 
