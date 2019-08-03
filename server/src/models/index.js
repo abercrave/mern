@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 
-import User from './user';
-import Message from './message';
+import Author from './author';
+import Book from './book';
 
 const connectDb = () => {
   mongoose.set('useNewUrlParser', true);
@@ -11,7 +11,7 @@ const connectDb = () => {
   return mongoose.connect(process.env.DATABASE_URL);
 };
 
-const models = { User, Message };
+const models = { Author, Book };
 
 export { connectDb };
 

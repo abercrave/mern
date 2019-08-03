@@ -7,44 +7,44 @@ import Navigation from './components/Navigation';
 import Spinner from './components/Spinner';
 
 const HomePage = React.lazy(() => import('./pages/HomePage'));
-const MessageDetailPage = React.lazy(() => import('./pages/MessageDetailPage'));
-const MessagesPage = React.lazy(() => import('./pages/MessagesPage'));
+const BookDetailPage = React.lazy(() => import('./pages/BookDetailPage'));
+const BooksPage = React.lazy(() => import('./pages/BooksPage'));
 const NotFoundPage = React.lazy(() => import('./pages/NotFoundPage'));
-const UserDetailPage = React.lazy(() => import('./pages/UserDetailPage'));
-const UserEditPage = React.lazy(() => import('./pages/UserEditPage'));
-const UsersPage = React.lazy(() => import('./pages/UsersPage'));
+const AuthorDetailPage = React.lazy(() => import('./pages/AuthorDetailPage'));
+const AuthorEditPage = React.lazy(() => import('./pages/AuthorEditPage'));
+const AuthorsPage = React.lazy(() => import('./pages/AuthorsPage'));
 
 const Pages = [
   {
     id: 0,
     href: '/',
-    subtitle: "Welcome to my MERN project! 👋",
+    subtitle: "Welcome to my MERN book project! 👋",
     text: 'Home',
     title: 'Home',
   },
   {
     id: 1,
-    href: '/messages',
+    href: '/books',
     subtitle: null,
-    text: 'Messages',
-    title: 'Messages',
+    text: 'Books',
+    title: 'Books',
   },
   {
     id: 2,
-    href: '/users',
+    href: '/authors',
     subtitle: null,
-    text: 'Users',
-    title: 'Users',
+    text: 'Authors',
+    title: 'Authors',
   }
 ];
 
 const routes = {
   '/': () => <HomePage title={Pages[0].title} subtitle={Pages[0].subtitle} />,
-  '/messages': () => <MessagesPage title={Pages[1].title} />,
-  '/messages/:slug': slug => <MessageDetailPage params={slug} title={Pages[1].title} />,
-  '/users': () => <UsersPage title={Pages[2].title} />,
-  '/users/:id': id => <UserDetailPage params={id} title={Pages[2].title} />,
-  '/users/:id/edit': id => <UserEditPage params={id} title="Edit" />,
+  '/books': () => <BooksPage title={Pages[1].title} />,
+  '/books/:slug': slug => <BookDetailPage params={slug} title={Pages[1].title} />,
+  '/authors': () => <AuthorsPage title={Pages[2].title} />,
+  '/authors/:username': username => <AuthorDetailPage params={username} title={Pages[2].title} />,
+  '/authors/:username/edit': username => <AuthorEditPage params={username} title="Edit Author" />,
 };
 
 function App(props) {

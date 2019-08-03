@@ -17,16 +17,16 @@ app.use(cors());
 app.use(async (req, res, next) => {
   req.context = {
     models,
-    // me: await models.User.findByUsername(req.cookies.username),
-    me: await models.User.findByUsername('rwieruch'),
+    // me: await models.Author.findByAuthorname(req.cookies.username),
+    me: await models.Author.findByAuthorname('ibanks'),
   };
 
   next();
 });
 
 app.use('/session',  routes.session);
-app.use('/users', routes.user);
-app.use('/messages', routes.message);
+app.use('/authors', routes.author);
+app.use('/books', routes.book);
 app.use('/example', routes.example);
 
 const eraseDatabaseOnSync = true;
@@ -34,11 +34,11 @@ const eraseDatabaseOnSync = true;
 connectDb().then(async () => {
   if (eraseDatabaseOnSync) {
     await Promise.all([
-      models.User.deleteMany({}),
-      models.Message.deleteMany({}),
+      models.Author.deleteMany({}),
+      models.Book.deleteMany({}),
     ]);
 
-    createUsersWithMessages();
+    createAuthorsWithBooks();
   }
 
   app.listen(process.env.PORT, () =>
@@ -46,43 +46,47 @@ connectDb().then(async () => {
   );
 });
 
-async function createUsersWithMessages() {
-  const user1 = await new models.User({
-    username: 'rwieruch',
-    messages: [],
+async function createAuthorsWithBooks() {
+  const author1 = await new models.Author({
+    bio: 'Iain Banks (16 February 1954 – 9 June 2013) was a Scottish author. He wrote mainstream fiction under the name Iain Banks and science fiction as Iain M. Banks, including the initial of his adopted middle name Menzies',
+    books: [],
+    name: 'Iain M. Banks',
+    username: 'ibanks',
   });
 
-  const user2 = await new models.User({
-    username: 'ddavids',
-    messages: [],
+  const author2 = await new models.Author({
+    bio: 'Mark Lawrence (born 1966) is an American-British novelist and scientist who wrote The Broken Empire trilogy of fantasy books. In 2014, Lawrence won the David Gemmell Legend Awards for best novel for Emperor of Thorns.',
+    books: [],
+    name: 'Mark Lawrence',
+    username: 'mlawrence',
   });
 
-  const message1 = await new models.Message({
-    slug: 'published-the-road-to-learn',
-    text: 'Published the Road to learn...',
-    user: user1.id,
+  const book1 = await new models.Book({
+    author: author1.id,
+    slug: 'consider-phlebas',
+    title: 'Consider Phlebas',
   });
 
-  const message2 = await new models.Message({
-    slug: 'happy-to-release',
-    text: 'Happy to release...',
-    user: user2.id,
+  const book2 = await new models.Book({
+    author: author1.id,
+    slug: 'use-of-weapons',
+    title: 'Use of Weapons',
   });
 
-  const message3 = await new models.Message({
-    slug: 'published-a-complete',
-    text: 'Published a complete...',
-    user: user2.id,
+  const book3 = await new models.Book({
+    author: author2.id,
+    slug: 'prince-of-thorns',
+    title: 'Prince of Thorns',
   });
 
-  message1.save();
-  message2.save();
-  message3.save();
+  author1.books.push(book1);
+  author1.books.push(book2);
+  author2.books.push(book3);
 
-  user1.messages.push(message1);
-  user2.messages.push(message2);
-  user2.messages.push(message3);
+  author1.save();
+  author2.save();
 
-  user1.save();
-  user2.save();
+  book1.save();
+  book2.save();
+  book3.save();
 }

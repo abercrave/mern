@@ -1,11 +1,11 @@
 import session from './session';
-import user from './user';
-import message from './message';
+import author from './author';
+import book from './book';
 import example from './example';
 
 export default {
   session,
-  user,
-  message,
+  author,
+  book,
   example,
 };

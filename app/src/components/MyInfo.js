@@ -7,7 +7,7 @@ class MyInfo extends Component {
     super(props);
 
     this.state = {
-      user: {}
+      author: {}
     };
   }
 
@@ -16,18 +16,18 @@ class MyInfo extends Component {
   }
 
   async getData() {
-    const user = await get(`${process.env.REACT_APP_API}/session`);
+    const author = await get(`${process.env.REACT_APP_API}/session`);
 
-    this.setState({ user });
+    this.setState({ author });
   }
 
   render() {
     const {
       username
-    } = this.state.user;
+    } = this.state.author;
 
     return <div className="my-info">
-      Hi, <Anchor classes="my-info__user" href={`/users/${username}`} text={username} />!
+      Hi, <Anchor classes="my-info__username" href={`/authors/${username}`} text={username} />!
     </div>
   }
 }

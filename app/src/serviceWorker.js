@@ -2,7 +2,7 @@
 // register() is not called by default.
 
 // This lets the app load faster on subsequent visits in production, and gives
-// it offline capabilities. However, it also means that developers (and users)
+// it offline capabilities. However, it also means that developers (and authors)
 // will only see deployed updates on subsequent visits to a page, after all the
 // existing tabs open on the page have been closed, since previously cached
 // resources are updated in the background.
@@ -81,7 +81,7 @@ function registerValidSW(swUrl, config) {
             } else {
               // At this point, everything has been precached.
               // It's the perfect time to display a
-              // "Content is cached for offline use." message.
+              // "Content is cached for offline use." book.
               console.log('Content is cached for offline use.');
 
               // Execute callback
