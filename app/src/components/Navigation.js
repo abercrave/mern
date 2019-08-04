@@ -1,5 +1,5 @@
 import React from 'react';
-import Anchor from './Anchor';
+import A from './A';
 
 function Navigation(props) {
   return <nav className="main-navigation">
@@ -18,7 +18,7 @@ function Navigation(props) {
           const isSelected = pathname === href || (href.length > 1 && pathname.startsWith(href));
 
           return <li key={id} className={isSelected ? 'selected' : null}>
-            <Anchor href={href} text={text} />
+            <A href={href}>{text}</A>
           </li>
         })}
       </ul>

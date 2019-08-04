@@ -6,7 +6,7 @@ router.get('/', async (req, res) => {
   const books = await req.context.models.Book.find()
     .populate({
       path: 'author',
-      select: 'name username',
+      select: 'firstName lastName username',
     });
 
   return res.send(books);

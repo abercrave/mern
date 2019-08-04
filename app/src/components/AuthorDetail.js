@@ -31,7 +31,8 @@ class AuthorDetail extends Component {
 
     const {
       books,
-      name,
+      firstName,
+      lastName,
       username,
     } = author;
 
@@ -40,7 +41,7 @@ class AuthorDetail extends Component {
 
       <div className="author-detail__books">
         <h2>
-          Books by {name}
+          Books by {firstName} {lastName}
         </h2>
         {books && books.length ? (
             books.map(book => {

@@ -11,7 +11,7 @@ function AuthorEditPage(props) {
 
   return <Page title={title}>
     <AuthorDetail id={params.id} />
-    <Cta href="/authors" text="← Back to authors" />
+    <Cta href="/authors">← Back to authors</Cta>
   </Page>;
 }
 

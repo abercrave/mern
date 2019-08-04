@@ -1,0 +1,32 @@
+@mixin cta-base {
+  border-radius: 0.25rem;
+  border-style: solid;
+  border-width: 2px;
+  display: inline-block;
+  font-weight: bold;
+  padding: 0.8rem 1rem;
+  text-decoration: none;
+  transition: background-color .35s, border-color .35s, color .35s;
+
+  & + .cta {
+    margin-left: 0.5rem;
+  }
+}
+
+@mixin cta($variant: 'primary') {
+  @include cta-base;
+
+  $cta: map-get($ctas, unquote($variant));
+  $default: map-get($cta, 'default');
+  $hover: map-get($cta, 'hover');
+
+  background-color: map-get($default, 'background-color');
+  border-color: map-get($default, 'border-color');
+  color: map-get($default, 'color');
+
+  &:hover {
+    background-color: map-get($hover, 'background-color');
+    border-color: map-get($hover, 'border-color');
+    color: map-get($hover, 'color');
+  }
+}

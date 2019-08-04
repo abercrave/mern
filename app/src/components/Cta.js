@@ -1,10 +1,23 @@
 import React from 'react';
-import { setLinkProps } from 'hookrouter';
+import A from './A';
 
 function Cta(props) {
-  return <a {...setLinkProps(props)} className="cta">
-    {props.text}
-  </a>
+  const {
+    children,
+    href,
+  } = props;
+
+  let {
+    classes,
+    variant,
+  } = props;
+
+  classes = classes ? classes : '';
+  classes += variant ? `cta--${variant}` : 'cta--primary'
+
+  return <A classes={`cta ${classes}`} href={href}>
+    {children}
+  </A>
 }
 
 export default Cta;

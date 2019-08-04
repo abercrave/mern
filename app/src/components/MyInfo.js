@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Anchor from '../components/Anchor';
+import A from '../components/A';
 import get from '../utils/Get.js';
 
 class MyInfo extends Component {
@@ -23,11 +23,13 @@ class MyInfo extends Component {
 
   render() {
     const {
-      username
+      firstName,
+      lastName,
+      username,
     } = this.state.author;
 
     return <div className="my-info">
-      Hi, <Anchor classes="my-info__username" href={`/authors/${username}`} text={username} />!
+      Hi, <A classes="my-info__username" href={`/authors/${username}`}>{firstName} {lastName}</A>!
     </div>
   }
 }

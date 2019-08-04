@@ -21,7 +21,7 @@ bookSchema.statics.findBySlug = async function(slug) {
     })
     .populate({
       path: 'author',
-      select: 'name username',
+      select: 'firstName lastName username',
     });
 
   return book;

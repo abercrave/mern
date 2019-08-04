@@ -50,14 +50,16 @@ async function createAuthorsWithBooks() {
   const author1 = await new models.Author({
     bio: 'Iain Banks (16 February 1954 – 9 June 2013) was a Scottish author. He wrote mainstream fiction under the name Iain Banks and science fiction as Iain M. Banks, including the initial of his adopted middle name Menzies',
     books: [],
-    name: 'Iain M. Banks',
+    firstName: 'Iain M.',
+    lastName: 'Banks',
     username: 'ibanks',
   });
 
   const author2 = await new models.Author({
     bio: 'Mark Lawrence (born 1966) is an American-British novelist and scientist who wrote The Broken Empire trilogy of fantasy books. In 2014, Lawrence won the David Gemmell Legend Awards for best novel for Emperor of Thorns.',
     books: [],
-    name: 'Mark Lawrence',
+    firstName: 'Mark',
+    lastName: 'Lawrence',
     username: 'mlawrence',
   });
 

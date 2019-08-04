@@ -9,9 +9,13 @@ function BookDetailPage(props) {
     title,
   } = props;
 
+  const {
+    slug
+  } = params || {};
+
   return <Page title={title}>
-    <BookDetail slug={params.slug} />
-    <Cta href="/books" text="← All books" />
+    <BookDetail slug={slug} />
+    <Cta href="/books">← All Books</Cta> <Cta href={`/books/${slug}/edit`} variant="secondary">✎ Edit Book</Cta>
   </Page>;
 }
 

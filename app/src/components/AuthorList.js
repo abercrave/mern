@@ -28,13 +28,7 @@ class AuthorList extends Component {
     } = this.state;
 
     return <div className={`authors ${authors.length ? 'loaded' : 'loading'}`}>
-      {authors.map(author => {
-        const {
-          _id,
-        } = author;
-
-        return <Author key={_id} author={author} link />;
-      })}
+      {authors.map((author, index) => <Author key={index} author={author} link />)}
     </div>
   }
 }

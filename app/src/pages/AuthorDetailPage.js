@@ -15,7 +15,7 @@ function AuthorDetailPage(props) {
 
   return <Page title={title}>
     <AuthorDetail username={username} />
-    <Cta href="/authors" text="← All authors" />
+    <Cta href="/authors">← All authors</Cta>
   </Page>;
 }
 

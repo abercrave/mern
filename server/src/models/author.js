@@ -4,7 +4,10 @@ const authorSchema = new mongoose.Schema({
   bio: {
     type: String,
   },
-  name: {
+  firstName: {
+    type: String,
+  },
+  lastName: {
     type: String,
   },
   username: {

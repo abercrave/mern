@@ -28,13 +28,7 @@ class BookList extends Component {
     } = this.state;
 
     return <div className={`books ${books.length ? 'loaded' : 'loading'}`}>
-      {books.map(book => {
-        const {
-          _id: id,
-        } = book;
-
-        return <Book key={id} book={book} link />;
-      })}
+      {books.map((book, index) => <Book key={index} book={book} link />)}
     </div>
   }
 }

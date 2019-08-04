@@ -1,0 +1,8 @@
+a {
+  display: inline-block;
+  transition: color .35s;
+
+  &:hover {
+    color: #c7c7c7;
+  }
+}

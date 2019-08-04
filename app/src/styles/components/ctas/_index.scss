@@ -1,0 +1,8 @@
+@import 'variables',
+  'mixins';
+
+@each $variant in map-keys($ctas) {
+  .cta--#{$variant} {
+    @include cta($variant);
+  }
+}

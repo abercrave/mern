@@ -1,5 +1,5 @@
 import React from 'react';
-import Anchor from './Anchor';
+import A from './A';
 
 function Book(props) {
   const {
@@ -14,20 +14,21 @@ function Book(props) {
   } = book || {};
 
   const {
-    name,
+    firstName,
+    lastName,
     username,
   } = author || {};
 
   return <article className="book">
     <h4>
       {link ?
-        <Anchor href={`/books/${slug}`} text={title} /> :
+        <A href={`/books/${slug}`}>{title}</A> :
         title
       }
     </h4>
     {username &&
       <p>
-        by <Anchor href={`/authors/${username}`} text={name} />
+        by <A href={`/authors/${username}`}>{firstName} {lastName}</A>
       </p>
     }
   </article>;

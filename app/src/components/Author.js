@@ -1,5 +1,5 @@
 import React from 'react';
-import Anchor from './Anchor';
+import A from './A';
 
 function Author(props) {
   const {
@@ -9,18 +9,19 @@ function Author(props) {
 
   const {
     bio,
-    name,
+    firstName,
+    lastName,
     username,
   } = author;
 
   return <article className="author">
       {link ?
         <h4>
-          <Anchor href={`/authors/${username}`} text={name} />
+          <A href={`/authors/${username}`}>{firstName} {lastName}</A>
         </h4> :
         <div>
           <h2>
-            About {name}
+            About {firstName} {lastName}
           </h2>
           <p>
             {bio}
