@@ -1,7 +1,9 @@
 import 'dotenv/config';
 import React, { Component } from 'react';
-import Book from './Book';
+import A from './A';
 import Author from './Author';
+import Book from './Book';
+import Cta from './Cta';
 import get from '../utils/Get';
 
 class AuthorDetail extends Component {
@@ -36,8 +38,14 @@ class AuthorDetail extends Component {
       username,
     } = author;
 
-    return <div className={`author-detail ${username ? 'loaded' : 'loading'}`}>
-      <Author author={author} />
+    return <section className={`author-detail ${username ? 'loaded' : 'loading'}`}>
+      <div className="author-detail__content">
+        <Author author={author} />
+
+        <p>
+          <Cta href={`/authors/${username}/edit`} variant="secondary">✎ Edit Author</Cta>
+        </p>
+      </div>
 
       <div className="author-detail__books">
         <h2>
@@ -52,11 +60,15 @@ class AuthorDetail extends Component {
               return <Book key={_id} book={book} link />
             })
           ) : (
-            <p>No books to display.</p>
+            <p>No books to display. <A href={`/books/add?author=${username}`}>Add one now!</A></p>
           )
         }
       </div>
-    </div>;
+
+      <p>
+        <Cta href="/authors">← All Authors</Cta>
+      </p>
+    </section>;
   }
 }
 

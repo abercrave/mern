@@ -28,7 +28,9 @@ class AuthorList extends Component {
     } = this.state;
 
     return <div className={`authors ${authors.length ? 'loaded' : 'loading'}`}>
-      {authors.map((author, index) => <Author key={index} author={author} link />)}
+      <div className="authors__list">
+        {authors.map((author, index) => <Author key={index} author={author} link />)}
+      </div>
     </div>
   }
 }

@@ -17,8 +17,8 @@ app.use(cors());
 app.use(async (req, res, next) => {
   req.context = {
     models,
-    // me: await models.Author.findByAuthorname(req.cookies.username),
-    me: await models.Author.findByAuthorname('ibanks'),
+    // me: await models.Author.findByUsername(req.cookies.username), // Get username set by cookie upon login.
+    me: await models.Author.findByUsername('ibanks'),
   };
 
   next();
@@ -29,7 +29,7 @@ app.use('/authors', routes.author);
 app.use('/books', routes.book);
 app.use('/example', routes.example);
 
-const eraseDatabaseOnSync = true;
+const eraseDatabaseOnSync = false;
 
 connectDb().then(async () => {
   if (eraseDatabaseOnSync) {

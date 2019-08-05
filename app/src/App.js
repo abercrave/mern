@@ -6,13 +6,15 @@ import MyInfo from './components/MyInfo';
 import Navigation from './components/Navigation';
 import Spinner from './components/Spinner';
 
-const HomePage = React.lazy(() => import('./pages/HomePage'));
-const BookDetailPage = React.lazy(() => import('./pages/BookDetailPage'));
-const BooksPage = React.lazy(() => import('./pages/BooksPage'));
-const NotFoundPage = React.lazy(() => import('./pages/NotFoundPage'));
+const AuthorAddPage = React.lazy(() => import('./pages/AuthorAddPage'));
 const AuthorDetailPage = React.lazy(() => import('./pages/AuthorDetailPage'));
 const AuthorEditPage = React.lazy(() => import('./pages/AuthorEditPage'));
 const AuthorsPage = React.lazy(() => import('./pages/AuthorsPage'));
+const BookAddPage = React.lazy(() => import('./pages/BookAddPage'));
+const BookDetailPage = React.lazy(() => import('./pages/BookDetailPage'));
+const BooksPage = React.lazy(() => import('./pages/BooksPage'));
+const HomePage = React.lazy(() => import('./pages/HomePage'));
+const NotFoundPage = React.lazy(() => import('./pages/NotFoundPage'));
 
 const Pages = [
   {
@@ -41,8 +43,10 @@ const Pages = [
 const routes = {
   '/': () => <HomePage title={Pages[0].title} subtitle={Pages[0].subtitle} />,
   '/books': () => <BooksPage title={Pages[1].title} />,
+  '/books/add': () => <BookAddPage title="Add a Book" />,
   '/books/:slug': slug => <BookDetailPage params={slug} title={Pages[1].title} />,
   '/authors': () => <AuthorsPage title={Pages[2].title} />,
+  '/authors/add': () => <AuthorAddPage title="Add an Author" />,
   '/authors/:username': username => <AuthorDetailPage params={username} title={Pages[2].title} />,
   '/authors/:username/edit': username => <AuthorEditPage params={username} title="Edit Author" />,
 };

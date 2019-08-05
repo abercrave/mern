@@ -20,7 +20,7 @@ const authorSchema = new mongoose.Schema({
   }]
 });
 
-authorSchema.statics.findByAuthorname = async function(login) {
+authorSchema.statics.findByUsername = async function(login) {
   let author = await this.findOne({
       username: login,
     })

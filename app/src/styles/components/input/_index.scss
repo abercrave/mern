@@ -1,0 +1,15 @@
+@import 'text',
+  'textarea';
+
+input {
+  min-width: 370px;
+}
+
+.input__label {
+  display: block;
+  font-weight: bold;
+}
+
+.input__row {
+  margin: 1rem 0;
+}

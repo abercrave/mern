@@ -2,19 +2,14 @@ import React from 'react';
 import AuthorForm from '../components/AuthorForm';
 import Page from '../components/Page';
 
-function AuthorEditPage(props) {
+function AuthorAddPage(props) {
   const {
-    params,
     title,
   } = props;
 
-  const {
-    username
-  } = params || {};
-
   return <Page title={title}>
-    <AuthorForm username={username} />
+    <AuthorForm />
   </Page>;
 }
 
-export default AuthorEditPage;
+export default AuthorAddPage;

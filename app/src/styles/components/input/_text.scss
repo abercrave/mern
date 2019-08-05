@@ -1,0 +1,9 @@
+input[type=text] {
+  border: 1px solid #000;
+  padding: 0.3rem 0.6rem;
+
+  &[readOnly] {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+}
