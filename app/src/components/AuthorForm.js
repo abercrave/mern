@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import A from './A';
-import Button from './Button';
-import Cta from './Cta';
+import Form from './Form';
 import Input from './Input';
-import Message from './Message';
 import Textarea from './Textarea';
 import get from '../utils/Get';
 import post from '../utils/Post';
@@ -123,32 +121,17 @@ class AuthorForm extends Component {
       username,
     } = this.state;
 
-    const hasMessage = message.text.length > 0;
+    const cancelHref = `/authors${isEditing ? '/' + username : null}`;
+    const displayForm = (isEditing && didFetchData) || (!isEditing && !didFetchData);
 
     return <div>
-      {didFetchData &&
-        <form className="form" onSubmit={this.handleSubmit}>
-          {hasMessage &&
-            <Message message={message} />
-          }
-
+      {displayForm &&
+        <Form cancelHref={cancelHref} className="form" message={message} onSubmit={this.handleSubmit}>
           <Input label="First Name" name="firstName" type="text" value={this.state.firstName} onChange={this.handleChange} />
-
           <Input label="Last Name" name="lastName" type="text" value={this.state.lastName} onChange={this.handleChange} />
-
           <Input label="Username" name="username" type="text" value={this.state.username} onChange={this.handleChange} />
-
           <Textarea label="Bio" name="bio" value={this.state.bio} onChange={this.handleChange} />
-
-          <div className="form__buttons">
-            <Button>
-              Save
-            </Button>
-            <Cta href={`/authors${isEditing ? '/' + username : null}`} variant="secondary">
-              Cancel
-            </Cta>
-          </div>
-        </form>
+        </Form>
       }
     </div>
   }
