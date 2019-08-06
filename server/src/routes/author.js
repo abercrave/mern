@@ -50,7 +50,7 @@ router.put('/:username', async (req, res) => {
 
     return res.send(author);
   } catch (e) {
-    res.status(503).send({ error: 'Internal server error.' });
+    res.status(503).send({ error: 'Service Unavailable.' });
   }
 });
 

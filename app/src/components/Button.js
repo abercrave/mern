@@ -11,10 +11,10 @@ function Button(props) {
     variant,
   } = props;
 
-  classes = classes ? classes : '';
-  classes += variant ? `cta--${variant}` : 'cta--primary'
+  let className = classes ? classes : '';
+  className += variant ? ` cta--${variant}` : ' cta--primary'
 
-  return <button className={classes} onClick={onClick}>
+  return <button className={className} onClick={onClick}>
     {children}
   </button>
 }

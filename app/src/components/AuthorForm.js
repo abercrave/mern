@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import A from './A';
 import Button from './Button';
 import Cta from './Cta';
+import Input from './Input';
+import Message from './Message';
+import Textarea from './Textarea';
 import get from '../utils/Get';
 import post from '../utils/Post';
 import put from '../utils/Put';
@@ -15,6 +18,7 @@ class AuthorForm extends Component {
     } = props;
 
     this.state = {
+      didFetchData: false,
       bio: '',
       firstName: '',
       isEditing: !!username,
@@ -37,6 +41,9 @@ class AuthorForm extends Component {
     }
   }
 
+  /**
+   * Retrieves author data from the API.
+   */
   async getData() {
     const author = await get(`${process.env.REACT_APP_API}/authors/${this.state.username}`);
     const {
@@ -46,6 +53,7 @@ class AuthorForm extends Component {
     } = author;
 
     this.setState({
+      didFetchData: true,
       bio,
       firstName,
       lastName,
@@ -96,71 +104,53 @@ class AuthorForm extends Component {
       response = await post(`${process.env.REACT_APP_API}/authors`, data);
     }
 
-    const didSubmit = response && response._id;
+    const success = typeof response._id !== 'undefined';
 
     this.setState({
       message: {
-        prompt: didSubmit ? <A classes="message__prompt" href={`/authors/${username}`}>View {firstName} {lastName}</A> : '',
-        text: didSubmit ? 'Author saved! ' : `${response.error} Please try again later.`,
-        type: didSubmit ? 'success' : 'error',
+        prompt: success ? <A classes="message__prompt" href={`/authors/${username}`}>View {firstName} {lastName}</A> : '',
+        text: success ? 'Author saved! ' : `${response.error} Please try again later.`,
+        type: success ? 'success' : 'error',
       }
     });
   }
 
   render() {
     const {
+      didFetchData,
       isEditing,
       message,
       username,
     } = this.state;
 
-    console.log('isEditing:', isEditing);
+    const hasMessage = message.text.length > 0;
 
-    return <form className="form" onSubmit={this.handleSubmit}>
-      {message.text !== '' &&
-        <div className={`message message--${message.type}`}>
-          {message.text} {message.prompt}
-        </div>
+    return <div>
+      {didFetchData &&
+        <form className="form" onSubmit={this.handleSubmit}>
+          {hasMessage &&
+            <Message message={message} />
+          }
+
+          <Input label="First Name" name="firstName" type="text" value={this.state.firstName} onChange={this.handleChange} />
+
+          <Input label="Last Name" name="lastName" type="text" value={this.state.lastName} onChange={this.handleChange} />
+
+          <Input label="Username" name="username" type="text" value={this.state.username} onChange={this.handleChange} />
+
+          <Textarea label="Bio" name="bio" value={this.state.bio} onChange={this.handleChange} />
+
+          <div className="form__buttons">
+            <Button>
+              Save
+            </Button>
+            <Cta href={`/authors${isEditing ? '/' + username : null}`} variant="secondary">
+              Cancel
+            </Cta>
+          </div>
+        </form>
       }
-      <div className="input__row">
-        <label>
-          <span className="input__label">
-            First name
-          </span>
-          <input name="firstName" type="text" value={this.state.firstName} onChange={this.handleChange} />
-        </label>
-      </div>
-      <div className="input__row">
-        <label>
-          <span className="input__label">Last name</span>
-          <input name="lastName" type="text" value={this.state.lastName} onChange={this.handleChange} />
-        </label>
-      </div>
-      <div className="input__row">
-        <label>
-          <span className="input__label">
-            Username
-          </span>
-          <input name="username" type="text" value={this.state.username} onChange={this.handleChange} readOnly={isEditing} title={`${isEditing && 'Changing a username is not allowed.'}`}/>
-        </label>
-      </div>
-      <div className="input__row">
-        <label>
-          <span className="input__label">
-            Bio
-          </span>
-          <textarea name="bio" type="text" value={this.state.bio} onChange={this.handleChange} />
-        </label>
-      </div>
-      <div className="form__buttons">
-        <Button>
-          Save
-        </Button>
-        <Cta href={`/authors${isEditing ? '/' + username : null}`} variant="secondary">
-          Cancel
-        </Cta>
-      </div>
-    </form>
+    </div>
   }
 }
 
