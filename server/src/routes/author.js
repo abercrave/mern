@@ -4,7 +4,17 @@ import isHexadecimal from '../utils/isHexadecimal';
 const router = Router();
 
 router.get('/', async (req, res) => {
-  const authors = await req.context.models.Author.find();
+  const authors = await req.context.models.Author.find().sort({ lastName: 'asc' });
+  return res.send(authors);
+});
+
+router.get('/sort/:field/:order', async (req, res) => {
+  const {
+    field,
+    order,
+  } = req.params;
+  const authors = await req.context.models.Author.find().sort({ [field]: order });
+
   return res.send(authors);
 });
 
