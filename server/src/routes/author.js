@@ -38,14 +38,18 @@ router.get('/:authorId', async (req, res) => {
 });
 
 router.post('/', async (req, res) => {
-  const author = await req.context.models.Author.create({
-    bio: req.body.bio,
-    firstName: req.body.firstName,
-    lastName: req.body.lastName,
-    username: req.body.username,
-  });
+  try {
+    const author = await req.context.models.Author.create({
+      bio: req.body.bio,
+      firstName: req.body.firstName,
+      lastName: req.body.lastName,
+      username: req.body.username,
+    });
 
-  return res.send(author);
+    return res.send(author);
+  } catch (e) {
+    res.status(503).send({ error: 'Service Unavailable.' });
+  }
 });
 
 router.put('/:username', async (req, res) => {
@@ -57,6 +61,18 @@ router.put('/:username', async (req, res) => {
     author.lastName = req.body.lastName;
 
     await author.save();
+
+    return res.send(author);
+  } catch (e) {
+    res.status(503).send({ error: 'Service Unavailable.' });
+  }
+});
+
+router.delete('/:username', async (req, res) => {
+  try {
+    const author = await req.context.models.Author.findByUsername(req.params.username);
+
+    await author.delete();
 
     return res.send(author);
   } catch (e) {

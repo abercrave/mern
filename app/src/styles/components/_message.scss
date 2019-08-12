@@ -25,6 +25,15 @@
     }
   }
 
+  &--info {
+    background-color: #17a2b8;
+
+    .#{$block}::before {
+      color: #17a2b8;
+      content: '❕';
+    }
+  }
+
   &--success {
     background-color: #28a745;
 

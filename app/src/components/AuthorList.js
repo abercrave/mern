@@ -1,6 +1,7 @@
 import 'dotenv/config';
 import React, { Component } from 'react';
 import Author from './Author';
+import MessageContainer from '../containers/Message';
 import get from '../utils/Get';
 
 class AuthorList extends Component {
@@ -28,6 +29,8 @@ class AuthorList extends Component {
     } = this.state;
 
     return <div className={`authors ${authors.length ? 'loaded' : 'loading'}`}>
+      <MessageContainer />
+
       <div className="authors__list">
         {authors.map((author, index) => <Author key={index} author={author} link />)}
       </div>

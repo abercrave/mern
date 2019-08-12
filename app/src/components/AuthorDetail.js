@@ -4,6 +4,7 @@ import A from './A';
 import Author from './Author';
 import Book from './Book';
 import Cta from './Cta';
+import MessageContainer from '../containers/Message';
 import get from '../utils/Get';
 
 class AuthorDetail extends Component {
@@ -38,7 +39,11 @@ class AuthorDetail extends Component {
       username,
     } = author;
 
-    return <section className={`author-detail ${username ? 'loaded' : 'loading'}`}>
+    let className = `author-detail ${username ? 'loaded' : 'loading'}`;
+
+    return <section className={className}>
+      <MessageContainer />
+
       <div className="author-detail__content">
         <Author author={author} />
 

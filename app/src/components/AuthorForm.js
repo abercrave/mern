@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import A from './A';
-import Form from './Form';
+import { ERROR_MESSAGE, SUCCESS_MESSAGE } from '../constants/message-categories';
+import FormContainer from '../containers/Form';
 import Input from './Input';
 import Textarea from './Textarea';
 import get from '../utils/Get';
@@ -16,21 +16,13 @@ class AuthorForm extends Component {
     } = props;
 
     this.state = {
-      didFetchData: false,
-      bio: '',
-      firstName: '',
+      data: {},
       isEditing: !!username,
-      lastName: '',
-      message: {
-        prompt: '',
-        text: '',
-        type: '',
-      },
-      username: username || '',
+      username: props.username || null,
     };
 
     this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
+    this.submitData = this.submitData.bind(this);
   }
 
   componentDidMount() {
@@ -43,18 +35,20 @@ class AuthorForm extends Component {
    * Retrieves author data from the API.
    */
   async getData() {
-    const author = await get(`${process.env.REACT_APP_API}/authors/${this.state.username}`);
     const {
       bio,
       firstName,
       lastName,
-    } = author;
+      username,
+    } = await get(`${process.env.REACT_APP_API}/authors/${this.state.username}`);
 
     this.setState({
-      didFetchData: true,
-      bio,
-      firstName,
-      lastName,
+      data: {
+        bio,
+        firstName,
+        lastName,
+        username,
+      }
     });
   }
 
@@ -65,75 +59,74 @@ class AuthorForm extends Component {
     } = e.target;
 
     this.setState({
-      [name]: value
+      data: {
+        ...this.state.data,
+        [name]: value
+      }
     });
   }
 
-  async handleSubmit(e) {
-    e.preventDefault();
-
-    this.setState({
-      message: {
-        prompt: '',
-        text: '',
-        type: '',
-      }
-    });
-
+  async submitData() {
     const {
-      bio,
-      firstName,
-      lastName,
-      username,
+      data,
+      isEditing,
     } = this.state;
 
-    const data = {
-      bio,
+    // Read the data payload.
+    const {
       firstName,
       lastName,
       username,
-    };
+    } = data;
 
-    let response;
+    // Determine REST method.
+    let method = isEditing ? put : post;
 
-    if (this.state.isEditing) {
-      response = await put(`${process.env.REACT_APP_API}/authors/${this.state.username}`, data);
-    } else {
-      response = await post(`${process.env.REACT_APP_API}/authors`, data);
+    // Determine API URL.
+    let url = `${process.env.REACT_APP_API}/authors`;
+
+    if (isEditing) {
+      url += `/${this.state.username}`;
     }
 
-    const success = typeof response._id !== 'undefined';
+    // Make the request.
+    const response = await method(url, data);
 
-    this.setState({
-      message: {
-        prompt: success ? <A classes="message__prompt" href={`/authors/${username}`}>View {firstName} {lastName}</A> : '',
-        text: success ? 'Author saved! ' : `${response.error} Please try again later.`,
-        type: success ? 'success' : 'error',
-      }
-    });
+    // Determine if request was successful.
+    const success = !response.error
+
+    // Generate new status message.
+    const message = {
+      category: success ? SUCCESS_MESSAGE : ERROR_MESSAGE,
+      persist: success,
+      prompt: success && !isEditing ? { href: `/authors/${username}`, text: `View ${firstName} ${lastName}` } : null,
+      text: success ? 'Author saved! ' : `${response.error} Please try again later.`,
+    };
+
+    return message;
   }
 
   render() {
     const {
-      didFetchData,
+      data,
       isEditing,
-      message,
-      username,
     } = this.state;
 
-    const cancelHref = `/authors${isEditing ? '/' + username : null}`;
-    const displayForm = (isEditing && didFetchData) || (!isEditing && !didFetchData);
+    const {
+      bio,
+      firstName,
+      lastName,
+      username,
+    } = data || {};
 
-    return <div>
-      {displayForm &&
-        <Form cancelHref={cancelHref} className="form" message={message} onSubmit={this.handleSubmit}>
-          <Input label="First Name" name="firstName" type="text" value={this.state.firstName} onChange={this.handleChange} />
-          <Input label="Last Name" name="lastName" type="text" value={this.state.lastName} onChange={this.handleChange} />
-          <Input label="Username" name="username" type="text" value={this.state.username} onChange={this.handleChange} />
-          <Textarea label="Bio" name="bio" value={this.state.bio} onChange={this.handleChange} />
-        </Form>
-      }
-    </div>
+    const backUrl = `/authors${isEditing ? '/' + username : null}`;
+
+    return <FormContainer backUrl={backUrl} classes="form--author" submitData={this.submitData}>
+      <Input label="First Name" name="firstName" type="text" value={firstName} onChange={this.handleChange} />
+      <Input label="Last Name" name="lastName" type="text" value={lastName} onChange={this.handleChange} />
+      <Input label="Username" name="username" type="text" value={username} onChange={this.handleChange} />
+      <Textarea label="Bio" name="bio" value={bio} onChange={this.handleChange} />
+    </FormContainer>
   }
 }
 

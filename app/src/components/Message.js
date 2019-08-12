@@ -1,30 +1,38 @@
-import React, { useState } from 'react';
+import React, { useEffect } from 'react';
+import A from './A';
 import Button from './Button';
 
-function Message(props) {
-  const [
-    text,
-    setText
-  ] = useState(props.message.text);
-
+function Message({ message, removeMessage }) {
   const {
+    category,
     prompt,
-    type,
-  } = props.message;
+    text,
+  } = message;
 
-  const isActive = Boolean(text && text.length);
+  let className = 'message';
 
-  function close(e) {
-    e.preventDefault();
-
-    setText('');
+  if (category.trim().length) {
+    className += ` message--${category}`;
   }
 
-  return <div className={`message message--${type} ${isActive ? 'message--active' : ''}`}>
+  if (text.trim().length) {
+    className += ' message--active';
+  }
+
+  useEffect(() => {
+    // Remove persisted messages when component is unmounted.
+    return function cleanup() {
+      removeMessage();
+    };
+  }, [removeMessage]);
+
+  return <div className={className}>
     <div className="message__content">
-      {text} {prompt}
+      {text} {prompt &&
+        <A classes="message__prompt" href={prompt.href}>{prompt.text}</A>
+      }
     </div>
-    <Button classes="message__close cta" variant="secondary" onClick={close}>X</Button>
+    <Button classes="message__close cta" variant="secondary" onClick={removeMessage}>X</Button>
   </div>;
 }
 

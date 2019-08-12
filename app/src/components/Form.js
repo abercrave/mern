@@ -1,29 +1,45 @@
 import React from 'react';
+import { navigate } from 'hookrouter';
+import { ERROR_MESSAGE } from '../constants/message-categories';
 import Button from './Button';
 import Cta from './Cta';
-import Message from './Message';
+import MessageContainer from '../containers/Message';
 
-function Form(props) {
-  const {
-    cancelHref,
-    children,
-    classes,
-    message,
-    onSubmit,
-  } = props;
-
+function Form({ backUrl, children, classes, addMessage, removeMessage, submitData }) {
   let className = 'form';
 
   if (classes) {
-    className += classes;
+    className += ` ${classes}`;
   }
 
-  const hasMessage = message && message.text.length > 0;
+  async function onSubmit(e) {
+    e.preventDefault();
+
+    // Clear an existing message with the "remove message" action.
+    removeMessage();
+
+    // Submit the data and get a new message.
+    const message = await submitData();
+
+    if (message) {
+      if (backUrl && message.category !== ERROR_MESSAGE) {
+        // Navigate back if submission was successful.
+        navigate(backUrl);
+
+        // Add message after navigation has occurred. The destination page will be responsible for
+        // displaying it.
+        setTimeout(() => {
+          addMessage(message);
+        });
+      } else {
+        // Display message above form.
+        addMessage(message);
+      }
+    }
+  }
 
   return <form className={className} onSubmit={onSubmit}>
-    {hasMessage &&
-      <Message message={message} />
-    }
+    <MessageContainer />
 
     {children}
 
@@ -31,13 +47,13 @@ function Form(props) {
       <Button>
         Save
       </Button>
-      {cancelHref &&
-        <Cta href={cancelHref} variant="secondary">
+      {backUrl &&
+        <Cta href={backUrl} variant="secondary">
           Cancel
         </Cta>
       }
     </div>
-  </form>;
+  </form>
 }
 
 export default Form;
