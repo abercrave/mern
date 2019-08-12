@@ -65,3 +65,21 @@ npm start
 ```
 
 The Create React App scripts will open the app in Chrome for you. Should that fail you can load the app in a browser at the following URL: http://localhost:3000/
+
+## Next Steps
+
+- [ ] Author deletion functionality.
+- [ ] Add/edit book functionality.
+- [ ] Book deletion functionality.
+- [ ] Functionality to associate/reassociate/unassociate books with authors.
+- [ ] Author/book sorting controls.
+- [ ] User accounts.
+- [ ] User login/session functionality.
+- [ ] User permissions functionality.
+- [ ] Author portraits.
+- [ ] Book covers.
+- [ ] Book barcode scanning (with ISBN lookup) functionality.
+- [x] Redux-based app-level status messages.
+- [x] DELETE author route.
+- [x] Sort authors by last name.
+- [x] Author add/edit functionality.
